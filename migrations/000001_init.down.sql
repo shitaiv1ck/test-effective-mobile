@@ -1,0 +1,3 @@
+DROP TABLE IF EXISTS test.subscriptions;
+
+DROP SCHEMA IF EXISTS test;
