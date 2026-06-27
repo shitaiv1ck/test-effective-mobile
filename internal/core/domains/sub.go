@@ -2,6 +2,7 @@ package domains
 
 import (
 	"fmt"
+	"strings"
 	"time"
 
 	"github.com/google/uuid"
@@ -18,8 +19,8 @@ type Sub struct {
 }
 
 func (s *Sub) Validate() error {
-	if len([]rune(s.ServiceName)) == 0 {
-		return fmt.Errorf("len service name must be greater than 0: %w", errs.ErrInvalidArg)
+	if strings.TrimSpace(s.ServiceName) == "" {
+		return fmt.Errorf("service name can't be empty: %w", errs.ErrInvalidArg)
 	}
 
 	if s.Price <= 0 {
