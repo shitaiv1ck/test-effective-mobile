@@ -1,3 +1,3 @@
-DROP TABLE IF EXISTS test.subscriptions;
+DROP TABLE IF EXISTS test_task.subscriptions;
 
-DROP SCHEMA IF EXISTS test;
+DROP SCHEMA IF EXISTS test_task;

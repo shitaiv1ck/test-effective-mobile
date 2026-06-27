@@ -34,3 +34,7 @@ migrate-force-1:
 	-path migrations \
 	-database "postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@test-task-postgres:5432/${POSTGRES_DB}?sslmode=disable" \
 	force 1
+
+app-run:
+	@go mod tidy && \
+	go run ${PROJECT_ROOT}/cmd/test/main.go

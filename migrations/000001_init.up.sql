@@ -1,6 +1,6 @@
-CREATE SCHEMA test
+CREATE SCHEMA test_task;
 
-CREATE TABLE test.subscriptions(
+CREATE TABLE test_task.subscriptions(
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     service_name VARCHAR(255) NOT NULL,
     price INT NOT NULL CHECK(price >= 0),
