@@ -38,3 +38,9 @@ migrate-force-1:
 app-run:
 	@go mod tidy && \
 	go run ${PROJECT_ROOT}/cmd/test/main.go
+
+app-deploy:
+	@docker compose up -d --build test-task
+
+app-deploy-stop:
+	@docker compose down test-task
