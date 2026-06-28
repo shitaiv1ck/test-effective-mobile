@@ -34,7 +34,7 @@ Tестовое задание для effective mobile для заявки на 
     "service_name": "Yandex Plus",
     "price": 1200,
     "user_id": "64201fee-2bf1-4721-ae6f-7636e79a0cba",
-    "start_date": "2026-04",
+    "start_date": "04-2026",
 }
 ```
 
