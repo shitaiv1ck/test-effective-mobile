@@ -1,0 +1,407 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "Tестовое задание для effective mobile для заявки на позицию Junior Golang-developer",
+        "title": "test-effective-mobile",
+        "contact": {},
+        "version": "1.0"
+    },
+    "host": "127.0.0.1:8080",
+    "basePath": "/api/",
+    "paths": {
+        "/subscriptions": {
+            "get": {
+                "description": "Получить список записей о подпсиках с опциональной пагинацией",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "subscriptions"
+                ],
+                "summary": "Список записей о подписках",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Лимит на получение списка",
+                        "name": "limit",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Смещение списка относительно первой записи",
+                        "name": "offset",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Успешное получение списка записей о подписках",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/internal_features_subscriptions_transport_http.SubDTOResponse"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_shitaiv1ck_test-effective-mobile_internal_core_transport_http_response.ErrorDTO"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_shitaiv1ck_test-effective-mobile_internal_core_transport_http_response.ErrorDTO"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Создать новую запись о подписке в системе",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "subscriptions"
+                ],
+                "summary": "Создать запись о подписке",
+                "parameters": [
+                    {
+                        "description": "CreateSub тело запроса",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/internal_features_subscriptions_transport_http.SubDTORequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Успешно созданная запись о подписке",
+                        "schema": {
+                            "$ref": "#/definitions/internal_features_subscriptions_transport_http.SubDTOResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_shitaiv1ck_test-effective-mobile_internal_core_transport_http_response.ErrorDTO"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_shitaiv1ck_test-effective-mobile_internal_core_transport_http_response.ErrorDTO"
+                        }
+                    }
+                }
+            }
+        },
+        "/subscriptions/statistics": {
+            "get": {
+                "description": "Получить статистику о подписках с опциональной фильтрацией",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "statistics"
+                ],
+                "summary": "Cтатистика о подписках",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Фильтрация по UUID пользователя",
+                        "name": "user_id",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Фильтрация по названию сервиса",
+                        "name": "service_name",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "C какого периода включительно",
+                        "name": "from_date",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "По какой период",
+                        "name": "to_date",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Успешное получение статистики о подписках",
+                        "schema": {
+                            "$ref": "#/definitions/internal_features_statistics_transport.StatsDTOResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_shitaiv1ck_test-effective-mobile_internal_core_transport_http_response.ErrorDTO"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_shitaiv1ck_test-effective-mobile_internal_core_transport_http_response.ErrorDTO"
+                        }
+                    }
+                }
+            }
+        },
+        "/subscriptions/{sub_id}": {
+            "get": {
+                "description": "Получить запись о подписке по UUID записи",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "subscriptions"
+                ],
+                "summary": "Запись о подписке",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "UUID записи",
+                        "name": "sub_id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Успешное получение записи о подписке",
+                        "schema": {
+                            "$ref": "#/definitions/internal_features_subscriptions_transport_http.SubDTOResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_shitaiv1ck_test-effective-mobile_internal_core_transport_http_response.ErrorDTO"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_shitaiv1ck_test-effective-mobile_internal_core_transport_http_response.ErrorDTO"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_shitaiv1ck_test-effective-mobile_internal_core_transport_http_response.ErrorDTO"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Удалить запись о подписке по UUID записи",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "subscriptions"
+                ],
+                "summary": "Удалить запись о подписке",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "UUID записи",
+                        "name": "sub_id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Успешное удаление записи о подписке"
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_shitaiv1ck_test-effective-mobile_internal_core_transport_http_response.ErrorDTO"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_shitaiv1ck_test-effective-mobile_internal_core_transport_http_response.ErrorDTO"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_shitaiv1ck_test-effective-mobile_internal_core_transport_http_response.ErrorDTO"
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "description": "Изменить цену и/или дату окончания подписки по UUID записи",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "subscriptions"
+                ],
+                "summary": "Изменить данные записи о подписке",
+                "parameters": [
+                    {
+                        "description": "PatchSub тело запроса",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/internal_features_subscriptions_transport_http.PatchSubDTORequest"
+                        }
+                    },
+                    {
+                        "type": "string",
+                        "description": "UUID записи",
+                        "name": "sub_id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Успешное изменение данных записи о подписке",
+                        "schema": {
+                            "$ref": "#/definitions/internal_features_subscriptions_transport_http.SubDTOResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_shitaiv1ck_test-effective-mobile_internal_core_transport_http_response.ErrorDTO"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_shitaiv1ck_test-effective-mobile_internal_core_transport_http_response.ErrorDTO"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_shitaiv1ck_test-effective-mobile_internal_core_transport_http_response.ErrorDTO"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "github_com_shitaiv1ck_test-effective-mobile_internal_core_transport_http_response.ErrorDTO": {
+            "type": "object",
+            "properties": {
+                "error": {
+                    "type": "string",
+                    "example": "full error text"
+                },
+                "message": {
+                    "type": "string",
+                    "example": "short error text"
+                }
+            }
+        },
+        "internal_features_statistics_transport.StatsDTOResponse": {
+            "type": "object",
+            "properties": {
+                "total_price": {
+                    "type": "integer",
+                    "example": 4200
+                }
+            }
+        },
+        "internal_features_subscriptions_transport_http.PatchSubDTORequest": {
+            "type": "object",
+            "properties": {
+                "end_date": {
+                    "type": "string",
+                    "example": "null"
+                },
+                "price": {
+                    "type": "integer",
+                    "example": 1200
+                }
+            }
+        },
+        "internal_features_subscriptions_transport_http.SubDTORequest": {
+            "type": "object",
+            "required": [
+                "price",
+                "service_name",
+                "start_date",
+                "user_id"
+            ],
+            "properties": {
+                "end_date": {
+                    "type": "string",
+                    "example": "05-2026"
+                },
+                "price": {
+                    "type": "integer",
+                    "example": 1200
+                },
+                "service_name": {
+                    "type": "string",
+                    "example": "Yandex Plus"
+                },
+                "start_date": {
+                    "type": "string",
+                    "example": "04-2026"
+                },
+                "user_id": {
+                    "type": "string",
+                    "example": "64201fee-2bf1-4721-ae6f-7636e79a0cba"
+                }
+            }
+        },
+        "internal_features_subscriptions_transport_http.SubDTOResponse": {
+            "type": "object",
+            "properties": {
+                "end_date": {
+                    "type": "string",
+                    "example": "05-2026"
+                },
+                "id": {
+                    "type": "string",
+                    "example": "e38b3587-eac7-4b21-ae11-e932dfa2c907"
+                },
+                "price": {
+                    "type": "integer",
+                    "example": 1200
+                },
+                "service_name": {
+                    "type": "string",
+                    "example": "Yandex Plus"
+                },
+                "start_date": {
+                    "type": "string",
+                    "example": "04-2026"
+                },
+                "user_id": {
+                    "type": "string",
+                    "example": "64201fee-2bf1-4721-ae6f-7636e79a0cba"
+                }
+            }
+        }
+    }
+}

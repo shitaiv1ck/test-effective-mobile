@@ -27,6 +27,7 @@ func NewHTTPServer(handler http.Handler, config Config, logger *logger.Logger) *
 func (s *HTTPServer) Run(ctx context.Context) error {
 	handler := middleware.ChainMiddleware(
 		s.handler,
+		middleware.CORS(),
 		middleware.RequestID(),
 		middleware.Logger(s.logger),
 		middleware.Panic(),

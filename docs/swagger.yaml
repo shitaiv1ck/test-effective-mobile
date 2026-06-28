@@ -1,0 +1,275 @@
+basePath: /api/
+definitions:
+  github_com_shitaiv1ck_test-effective-mobile_internal_core_transport_http_response.ErrorDTO:
+    properties:
+      error:
+        example: full error text
+        type: string
+      message:
+        example: short error text
+        type: string
+    type: object
+  internal_features_statistics_transport.StatsDTOResponse:
+    properties:
+      total_price:
+        example: 4200
+        type: integer
+    type: object
+  internal_features_subscriptions_transport_http.PatchSubDTORequest:
+    properties:
+      end_date:
+        example: "null"
+        type: string
+      price:
+        example: 1200
+        type: integer
+    type: object
+  internal_features_subscriptions_transport_http.SubDTORequest:
+    properties:
+      end_date:
+        example: 05-2026
+        type: string
+      price:
+        example: 1200
+        type: integer
+      service_name:
+        example: Yandex Plus
+        type: string
+      start_date:
+        example: 04-2026
+        type: string
+      user_id:
+        example: 64201fee-2bf1-4721-ae6f-7636e79a0cba
+        type: string
+    required:
+    - price
+    - service_name
+    - start_date
+    - user_id
+    type: object
+  internal_features_subscriptions_transport_http.SubDTOResponse:
+    properties:
+      end_date:
+        example: 05-2026
+        type: string
+      id:
+        example: e38b3587-eac7-4b21-ae11-e932dfa2c907
+        type: string
+      price:
+        example: 1200
+        type: integer
+      service_name:
+        example: Yandex Plus
+        type: string
+      start_date:
+        example: 04-2026
+        type: string
+      user_id:
+        example: 64201fee-2bf1-4721-ae6f-7636e79a0cba
+        type: string
+    type: object
+host: 127.0.0.1:8080
+info:
+  contact: {}
+  description: Tестовое задание для effective mobile для заявки на позицию Junior
+    Golang-developer
+  title: test-effective-mobile
+  version: "1.0"
+paths:
+  /subscriptions:
+    get:
+      description: Получить список записей о подпсиках с опциональной пагинацией
+      parameters:
+      - description: Лимит на получение списка
+        in: query
+        name: limit
+        type: integer
+      - description: Смещение списка относительно первой записи
+        in: query
+        name: offset
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Успешное получение списка записей о подписках
+          schema:
+            items:
+              $ref: '#/definitions/internal_features_subscriptions_transport_http.SubDTOResponse'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_shitaiv1ck_test-effective-mobile_internal_core_transport_http_response.ErrorDTO'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/github_com_shitaiv1ck_test-effective-mobile_internal_core_transport_http_response.ErrorDTO'
+      summary: Список записей о подписках
+      tags:
+      - subscriptions
+    post:
+      consumes:
+      - application/json
+      description: Создать новую запись о подписке в системе
+      parameters:
+      - description: CreateSub тело запроса
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/internal_features_subscriptions_transport_http.SubDTORequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Успешно созданная запись о подписке
+          schema:
+            $ref: '#/definitions/internal_features_subscriptions_transport_http.SubDTOResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_shitaiv1ck_test-effective-mobile_internal_core_transport_http_response.ErrorDTO'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/github_com_shitaiv1ck_test-effective-mobile_internal_core_transport_http_response.ErrorDTO'
+      summary: Создать запись о подписке
+      tags:
+      - subscriptions
+  /subscriptions/{sub_id}:
+    delete:
+      description: Удалить запись о подписке по UUID записи
+      parameters:
+      - description: UUID записи
+        in: path
+        name: sub_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: Успешное удаление записи о подписке
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_shitaiv1ck_test-effective-mobile_internal_core_transport_http_response.ErrorDTO'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/github_com_shitaiv1ck_test-effective-mobile_internal_core_transport_http_response.ErrorDTO'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/github_com_shitaiv1ck_test-effective-mobile_internal_core_transport_http_response.ErrorDTO'
+      summary: Удалить запись о подписке
+      tags:
+      - subscriptions
+    get:
+      description: Получить запись о подписке по UUID записи
+      parameters:
+      - description: UUID записи
+        in: path
+        name: sub_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Успешное получение записи о подписке
+          schema:
+            $ref: '#/definitions/internal_features_subscriptions_transport_http.SubDTOResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_shitaiv1ck_test-effective-mobile_internal_core_transport_http_response.ErrorDTO'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/github_com_shitaiv1ck_test-effective-mobile_internal_core_transport_http_response.ErrorDTO'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/github_com_shitaiv1ck_test-effective-mobile_internal_core_transport_http_response.ErrorDTO'
+      summary: Запись о подписке
+      tags:
+      - subscriptions
+    patch:
+      consumes:
+      - application/json
+      description: Изменить цену и/или дату окончания подписки по UUID записи
+      parameters:
+      - description: PatchSub тело запроса
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/internal_features_subscriptions_transport_http.PatchSubDTORequest'
+      - description: UUID записи
+        in: path
+        name: sub_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Успешное изменение данных записи о подписке
+          schema:
+            $ref: '#/definitions/internal_features_subscriptions_transport_http.SubDTOResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_shitaiv1ck_test-effective-mobile_internal_core_transport_http_response.ErrorDTO'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/github_com_shitaiv1ck_test-effective-mobile_internal_core_transport_http_response.ErrorDTO'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/github_com_shitaiv1ck_test-effective-mobile_internal_core_transport_http_response.ErrorDTO'
+      summary: Изменить данные записи о подписке
+      tags:
+      - subscriptions
+  /subscriptions/statistics:
+    get:
+      description: Получить статистику о подписках с опциональной фильтрацией
+      parameters:
+      - description: Фильтрация по UUID пользователя
+        in: query
+        name: user_id
+        type: string
+      - description: Фильтрация по названию сервиса
+        in: query
+        name: service_name
+        type: string
+      - description: C какого периода включительно
+        in: query
+        name: from_date
+        type: string
+      - description: По какой период
+        in: query
+        name: to_date
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Успешное получение статистики о подписках
+          schema:
+            $ref: '#/definitions/internal_features_statistics_transport.StatsDTOResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_shitaiv1ck_test-effective-mobile_internal_core_transport_http_response.ErrorDTO'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/github_com_shitaiv1ck_test-effective-mobile_internal_core_transport_http_response.ErrorDTO'
+      summary: Cтатистика о подписках
+      tags:
+      - statistics
+swagger: "2.0"

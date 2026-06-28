@@ -32,6 +32,17 @@ func NewSubHTTP(service SubsService) *SubsHTTP {
 	}
 }
 
+// CreateSub godoc
+// @Summary Создать запись о подписке
+// @Description Создать новую запись о подписке в системе
+// @Tags subscriptions
+// @Accept json
+// @Produce json
+// @Param request body SubDTORequest true "CreateSub тело запроса"
+// @Success 201 {object} SubDTOResponse "Успешно созданная запись о подписке"
+// @Failure 400 {object} httpresponse.ErrorDTO "Bad Request"
+// @Failure 500 {object} httpresponse.ErrorDTO "Internal Server Error"
+// @Router /subscriptions [post]
 func (t *SubsHTTP) CreateSubHandler() http.HandlerFunc {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		rw := httpresponse.NewRW(w)
@@ -81,6 +92,17 @@ func (t *SubsHTTP) CreateSubHandler() http.HandlerFunc {
 	})
 }
 
+// GetSubs godoc
+// @Summary Список записей о подписках
+// @Description Получить список записей о подпсиках с опциональной пагинацией
+// @Tags subscriptions
+// @Produce json
+// @Param limit query int false "Лимит на получение списка"
+// @Param offset query int false "Смещение списка относительно первой записи"
+// @Success 200 {object} []SubDTOResponse "Успешное получение списка записей о подписках"
+// @Failure 400 {object} httpresponse.ErrorDTO "Bad Request"
+// @Failure 500 {object} httpresponse.ErrorDTO "Internal Server Error"
+// @Router /subscriptions [get]
 func (t *SubsHTTP) GetSubsHandler() http.HandlerFunc {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		rw := httpresponse.NewRW(w)
@@ -115,6 +137,17 @@ func (t *SubsHTTP) GetSubsHandler() http.HandlerFunc {
 	})
 }
 
+// GetSub godoc
+// @Summary Запись о подписке
+// @Description Получить запись о подписке по UUID записи
+// @Tags subscriptions
+// @Produce json
+// @Param sub_id path string true "UUID записи"
+// @Success 200 {object} SubDTOResponse "Успешное получение записи о подписке"
+// @Failure 400 {object} httpresponse.ErrorDTO "Bad Request"
+// @Failure 404 {object} httpresponse.ErrorDTO "Not Found"
+// @Failure 500 {object} httpresponse.ErrorDTO "Internal Server Error"
+// @Router /subscriptions/{sub_id} [get]
 func (t *SubsHTTP) GetSubHandler() http.HandlerFunc {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		rw := httpresponse.NewRW(w)
@@ -142,6 +175,19 @@ func (t *SubsHTTP) GetSubHandler() http.HandlerFunc {
 	})
 }
 
+// PatchSub godoc
+// @Summary Изменить данные записи о подписке
+// @Description Изменить цену и/или дату окончания подписки по UUID записи
+// @Tags subscriptions
+// @Accept json
+// @Produce json
+// @Param request body PatchSubDTORequest true "PatchSub тело запроса"
+// @Param sub_id path string true "UUID записи"
+// @Success 200 {object} SubDTOResponse "Успешное изменение данных записи о подписке"
+// @Failure 400 {object} httpresponse.ErrorDTO "Bad Request"
+// @Failure 404 {object} httpresponse.ErrorDTO "Not Found"
+// @Failure 500 {object} httpresponse.ErrorDTO "Internal Server Error"
+// @Router /subscriptions/{sub_id} [patch]
 func (t *SubsHTTP) PatchSubHandler() http.HandlerFunc {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		rw := httpresponse.NewRW(w)
@@ -178,6 +224,17 @@ func (t *SubsHTTP) PatchSubHandler() http.HandlerFunc {
 	})
 }
 
+// DeleteSub godoc
+// @Summary Удалить запись о подписке
+// @Description Удалить запись о подписке по UUID записи
+// @Tags subscriptions
+// @Produce json
+// @Param sub_id path string true "UUID записи"
+// @Success 204 "Успешное удаление записи о подписке"
+// @Failure 400 {object} httpresponse.ErrorDTO "Bad Request"
+// @Failure 404 {object} httpresponse.ErrorDTO "Not Found"
+// @Failure 500 {object} httpresponse.ErrorDTO "Internal Server Error"
+// @Router /subscriptions/{sub_id} [delete]
 func (t *SubsHTTP) DeleteSubHandler() http.HandlerFunc {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		rw := httpresponse.NewRW(w)
