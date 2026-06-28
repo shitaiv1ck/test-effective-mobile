@@ -44,3 +44,12 @@ app-deploy:
 
 app-deploy-stop:
 	@docker compose down test-task
+
+swagger-gen:
+	@docker compose run --rm swagger \
+	init \
+	-g cmd/test/main.go \
+	-o docs \
+	--parseInternal \
+	--parseDependency
+

@@ -32,6 +32,19 @@ func NewStatsHTTP(service StatsService) *StatsHTTP {
 	}
 }
 
+// GetStatistics godoc
+// @Summary Cтатистика о подписках
+// @Description Получить статистику о подписках с опциональной фильтрацией
+// @Tags statistics
+// @Produce json
+// @Param user_id query string false "Фильтрация по UUID пользователя"
+// @Param service_name query string false "Фильтрация по названию сервиса"
+// @Param from_date query string false "C какого периода включительно"
+// @Param to_date query string false "По какой период"
+// @Success 200 {object} StatsDTOResponse "Успешное получение статистики о подписках"
+// @Failure 400 {object} httpresponse.ErrorDTO "Bad Request"
+// @Failure 500 {object} httpresponse.ErrorDTO "Internal Server Error"
+// @Router /subscriptions/statistics [get]
 func (t *StatsHTTP) GetStatisticsHandler() http.HandlerFunc {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		rw := httpresponse.NewRW(w)

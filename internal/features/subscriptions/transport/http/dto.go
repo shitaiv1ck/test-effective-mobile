@@ -6,25 +6,25 @@ import (
 )
 
 type SubDTORequest struct {
-	ServiceName string    `json:"service_name" validate:"required"`
-	Price       int       `json:"price" validate:"required"`
-	UserID      uuid.UUID `json:"user_id" validate:"required"`
-	StartDate   string    `json:"start_date" validate:"required,len=7"`
-	EndDate     *string   `json:"end_date" validate:"omitempty,len=7"`
+	ServiceName string    `json:"service_name" validate:"required"     example:"Yandex Plus"`
+	Price       int       `json:"price" validate:"required"            example:"1200"`
+	UserID      uuid.UUID `json:"user_id" validate:"required"          example:"64201fee-2bf1-4721-ae6f-7636e79a0cba"`
+	StartDate   string    `json:"start_date" validate:"required,len=7" example:"04-2026"`
+	EndDate     *string   `json:"end_date" validate:"omitempty,len=7"  example:"05-2026"`
 }
 
 type SubDTOResponse struct {
-	ID          uuid.UUID
-	ServiceName string
-	Price       int
-	UserID      uuid.UUID
-	StartDate   string
-	EndDate     *string `json:"end_date" validate:"required,len=7"`
+	ID          uuid.UUID `json:"id"           example:"e38b3587-eac7-4b21-ae11-e932dfa2c907"`
+	ServiceName string    `json:"service_name" example:"Yandex Plus"`
+	Price       int       `json:"price"        example:"1200"`
+	UserID      uuid.UUID `json:"user_id"      example:"64201fee-2bf1-4721-ae6f-7636e79a0cba"`
+	StartDate   string    `json:"start_date"   example:"04-2026"`
+	EndDate     *string   `json:"end_date"     example:"05-2026"`
 }
 
 type PatchSubDTORequest struct {
-	Price   domains.Nullable[int]    `json:"price" validate:"omitempty"`
-	EndDate domains.Nullable[string] `json:"end_date" validate:"omitempty"`
+	Price   domains.Nullable[int]    `json:"price" validate:"omitempty"    swaggertype:"integer" example:"1200"`
+	EndDate domains.Nullable[string] `json:"end_date" validate:"omitempty" swaggertype:"string" example:"null"`
 }
 
 func ToDTO(sub domains.Sub) SubDTOResponse {

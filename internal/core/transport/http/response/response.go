@@ -22,6 +22,7 @@ func NewRW(w http.ResponseWriter) *ResponseWritter {
 }
 
 func (rw *ResponseWritter) ErrorResponse(msg string, err error, logger *logger.Logger) {
+	rw.Header().Set("Content-Type", "application/json")
 	rw.WriteHeader(setStatusCode(err))
 
 	errDTO := ErrorDTO{
@@ -41,6 +42,7 @@ func (rw *ResponseWritter) ErrorResponse(msg string, err error, logger *logger.L
 }
 
 func (rw *ResponseWritter) JSONResponse(body any, statusCode int) {
+	rw.Header().Set("Content-Type", "application/json")
 	rw.WriteHeader(statusCode)
 
 	if err := json.NewEncoder(rw).Encode(body); err != nil {
@@ -63,7 +65,7 @@ func setStatusCode(err error) int {
 	}
 
 	if errors.Is(err, errs.ErrNotFound) {
-		return http.StatusBadRequest
+		return http.StatusNotFound
 	}
 
 	return http.StatusInternalServerError
